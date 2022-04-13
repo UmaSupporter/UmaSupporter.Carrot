@@ -46,6 +46,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
+            ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["postcss", "npm:8.4.12"],\
             ["prettier", "npm:2.6.2"],\
@@ -106,6 +107,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime-corejs3", "npm:7.17.8"],\
             ["core-js-pure", "npm:3.21.1"],\
             ["regenerator-runtime", "npm:0.13.9"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@emotion/is-prop-valid", [\
+        ["npm:0.8.8", {\
+          "packageLocation": "./.yarn/cache/@emotion-is-prop-valid-npm-0.8.8-261a0f2426-bb7ec6d48c.zip/node_modules/@emotion/is-prop-valid/",\
+          "packageDependencies": [\
+            ["@emotion/is-prop-valid", "npm:0.8.8"],\
+            ["@emotion/memoize", "npm:0.7.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@emotion/memoize", [\
+        ["npm:0.7.4", {\
+          "packageLocation": "./.yarn/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-4e3920d4ec.zip/node_modules/@emotion/memoize/",\
+          "packageDependencies": [\
+            ["@emotion/memoize", "npm:0.7.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1143,6 +1163,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
+            ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["postcss", "npm:8.4.12"],\
             ["prettier", "npm:2.6.2"],\
@@ -2474,6 +2495,48 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["framer-motion", [\
+        ["npm:6.2.10", {\
+          "packageLocation": "./.yarn/cache/framer-motion-npm-6.2.10-7c74722a64-75cc1dd42d.zip/node_modules/framer-motion/",\
+          "packageDependencies": [\
+            ["framer-motion", "npm:6.2.10"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10", {\
+          "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-4b3c1307cf/0/cache/framer-motion-npm-6.2.10-7c74722a64-75cc1dd42d.zip/node_modules/framer-motion/",\
+          "packageDependencies": [\
+            ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
+            ["@emotion/is-prop-valid", "npm:0.8.8"],\
+            ["@types/react", "npm:17.0.43"],\
+            ["@types/react-dom", "npm:17.0.14"],\
+            ["framesync", "npm:6.0.1"],\
+            ["hey-listen", "npm:1.0.8"],\
+            ["popmotion", "npm:11.0.3"],\
+            ["react", "npm:18.0.0"],\
+            ["react-dom", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:18.0.0"],\
+            ["style-value-types", "npm:5.0.0"],\
+            ["tslib", "npm:2.3.1"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["framesync", [\
+        ["npm:6.0.1", {\
+          "packageLocation": "./.yarn/cache/framesync-npm-6.0.1-937c080b05-a23ebe8f7e.zip/node_modules/framesync/",\
+          "packageDependencies": [\
+            ["framesync", "npm:6.0.1"],\
+            ["tslib", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fs-minipass", [\
         ["npm:2.1.0", {\
           "packageLocation": "./.yarn/cache/fs-minipass-npm-2.1.0-501ef87306-1b8d128dae.zip/node_modules/fs-minipass/",\
@@ -2759,6 +2822,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/has-yarn-npm-2.1.0-b73f6750d9-5eb1d0bb85.zip/node_modules/has-yarn/",\
           "packageDependencies": [\
             ["has-yarn", "npm:2.1.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["hey-listen", [\
+        ["npm:1.0.8", {\
+          "packageLocation": "./.yarn/cache/hey-listen-npm-1.0.8-adb7dae9da-6bad60b367.zip/node_modules/hey-listen/",\
+          "packageDependencies": [\
+            ["hey-listen", "npm:1.0.8"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4027,6 +4099,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["popmotion", [\
+        ["npm:11.0.3", {\
+          "packageLocation": "./.yarn/cache/popmotion-npm-11.0.3-120f81eddd-9fe7d03b4e.zip/node_modules/popmotion/",\
+          "packageDependencies": [\
+            ["popmotion", "npm:11.0.3"],\
+            ["framesync", "npm:6.0.1"],\
+            ["hey-listen", "npm:1.0.8"],\
+            ["style-value-types", "npm:5.0.0"],\
+            ["tslib", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["postcss", [\
         ["npm:8.4.12", {\
           "packageLocation": "./.yarn/cache/postcss-npm-8.4.12-e941d78a98-248e3d0f9b.zip/node_modules/postcss/",\
@@ -4768,6 +4853,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["style-value-types", [\
+        ["npm:5.0.0", {\
+          "packageLocation": "./.yarn/cache/style-value-types-npm-5.0.0-ba441f7a16-16d198302c.zip/node_modules/style-value-types/",\
+          "packageDependencies": [\
+            ["style-value-types", "npm:5.0.0"],\
+            ["hey-listen", "npm:1.0.8"],\
+            ["tslib", "npm:2.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["styled-jsx", [\
         ["npm:5.0.1", {\
           "packageLocation": "./.yarn/cache/styled-jsx-npm-5.0.1-c0b078fc05-b85eb03da7.zip/node_modules/styled-jsx/",\
@@ -4968,6 +5064,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/tslib-npm-1.14.1-102499115e-dbe628ef87.zip/node_modules/tslib/",\
           "packageDependencies": [\
             ["tslib", "npm:1.14.1"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:2.3.1", {\
+          "packageLocation": "./.yarn/cache/tslib-npm-2.3.1-0e21e18015-de17a98d46.zip/node_modules/tslib/",\
+          "packageDependencies": [\
+            ["tslib", "npm:2.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
