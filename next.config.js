@@ -4,7 +4,7 @@ const VERCEL_ENV = process.env.VERCEL_ENV || "local";
 function getExcludedConsole() {
   const excluded = ["error"];
 
-  if (!production) {
+  if (production) {
     excluded.push("log");
     excluded.push("warn");
     excluded.push("dir");
