@@ -1,5 +1,6 @@
 import { createContext, FC, useState } from "react";
 import { Alert } from "components/Alert";
+import { AnimatePresence } from "framer-motion";
 
 interface IAlert {
   type: "info" | "success" | "warning" | "error";
@@ -27,8 +28,8 @@ export const AlertContext = createContext<IAlertContext>({
 
 const AlertContextProvider: FC = ({ children }) => {
   const [alerts, setAlerts] = useState<IAlertsWithId[]>([]);
-
-  const push = (alert: IAlert) => setAlerts((prev) => [...prev, { id: prev.length + 1, ...alert }]);
+  
+  const push = (alert: IAlert) => setAlerts((prev) => [...prev, { id: +new Date(), ...alert }]);
   const close = (id: number) => setAlerts((prev) => prev.filter((a) => a.id !== id));
 
   return (
@@ -39,13 +40,13 @@ const AlertContextProvider: FC = ({ children }) => {
         close,
       }}
     >
-      {!!alerts.length && (
-        <aside className={"fixed top-8 inset-x-4 container mx-auto flex flex-col gap-4"}>
+      <aside className={"fixed top-8 inset-x-4 container mx-auto flex flex-col gap-4"}>
+        <AnimatePresence>
           {alerts.map(({ id, type, title, message }) => (
             <Alert key={id} type={type} title={title} message={message} close={() => close(id)} />
           ))}
-        </aside>
-      )}
+        </AnimatePresence>
+      </aside>
       {children}
     </AlertContext.Provider>
   );

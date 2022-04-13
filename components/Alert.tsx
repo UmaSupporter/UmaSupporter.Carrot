@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 interface IAlertProps {
   close(): void;
@@ -90,7 +91,12 @@ export function Alert({ close, type, title, message }: IAlertProps) {
   }, [close]);
 
   return (
-    <div className={`alert alert-${type} shadow-lg`}>
+    <motion.div
+      initial={{ opacity: 0, y: 50, scale: 0.3 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+      className={`alert alert-${type} shadow-lg`}
+    >
       <div>
         <Icon type={type} />
         <div className={"flex flex-col items-start gap-0"}>
@@ -103,6 +109,6 @@ export function Alert({ close, type, title, message }: IAlertProps) {
           Close
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
