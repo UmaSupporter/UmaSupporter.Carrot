@@ -5,4 +5,10 @@ class CustomError extends Error {
   }
 }
 
+export class ValidationError extends CustomError {
+  constructor(message: string) {
+    super("ValidationError", message);
+  }
+}
+
 export default CustomError;
