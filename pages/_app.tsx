@@ -3,6 +3,7 @@ import "styles/globals.css";
 import { useEffect } from "react";
 import getConfig from "next/config";
 import type { AppProps } from "next/app";
+import AlertContextProvider from "contexts/AlertContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { publicRuntimeConfig } = getConfig();
@@ -12,7 +13,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     console.log(`git commit: ${publicRuntimeConfig.COMMIT_SHA}`);
   }, [publicRuntimeConfig.COMMIT_SHA, publicRuntimeConfig.VERCEL_ENV]);
 
-  return <Component {...pageProps} />;
+  return (
+    <AlertContextProvider>
+      <Component {...pageProps} />
+    </AlertContextProvider>
+  );
 }
 
 export default MyApp;
