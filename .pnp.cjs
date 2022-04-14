@@ -48,6 +48,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
             ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
+            ["js-sha512", "npm:0.8.0"],\
             ["jsonwebtoken", "npm:8.5.1"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["postcss", "npm:8.4.12"],\
@@ -1186,6 +1187,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
             ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
+            ["js-sha512", "npm:0.8.0"],\
             ["jsonwebtoken", "npm:8.5.1"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
             ["postcss", "npm:8.4.12"],\
@@ -3296,6 +3298,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/isexe-npm-2.0.0-b58870bd2e-26bf6c5480.zip/node_modules/isexe/",\
           "packageDependencies": [\
             ["isexe", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["js-sha512", [\
+        ["npm:0.8.0", {\
+          "packageLocation": "./.yarn/cache/js-sha512-npm-0.8.0-48a1a122ac-32ca371ebd.zip/node_modules/js-sha512/",\
+          "packageDependencies": [\
+            ["js-sha512", "npm:0.8.0"]\
           ],\
           "linkType": "HARD"\
         }]\
