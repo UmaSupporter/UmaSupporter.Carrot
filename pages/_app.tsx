@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import getConfig from "next/config";
 import type { AppProps } from "next/app";
 import AlertContextProvider from "contexts/AlertContext";
+import LoginContextProvider from "contexts/LoginContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { publicRuntimeConfig } = getConfig();
@@ -15,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <AlertContextProvider>
-      <Component {...pageProps} />
+      <LoginContextProvider>
+        <Component {...pageProps} />
+      </LoginContextProvider>
     </AlertContextProvider>
   );
 }
