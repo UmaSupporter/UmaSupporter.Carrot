@@ -28,7 +28,7 @@ export const AlertContext = createContext<IAlertContext>({
 
 const AlertContextProvider: FC = ({ children }) => {
   const [alerts, setAlerts] = useState<IAlertsWithId[]>([]);
-  
+
   const push = (alert: IAlert) => setAlerts((prev) => [...prev, { id: +new Date(), ...alert }]);
   const close = (id: number) => setAlerts((prev) => prev.filter((a) => a.id !== id));
 
