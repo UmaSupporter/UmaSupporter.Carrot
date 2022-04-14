@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import jwt, { JsonWebTokenError } from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
 export async function middleware(req: NextRequest) {
   if (req.page.name === "/api/auth/login") return;
@@ -9,18 +9,11 @@ export async function middleware(req: NextRequest) {
   if (authorization) {
     const token = authorization.split(" ")[1];
     try {
-      jwt.verify(token, adminPw);
+      await jwtVerify(token, new TextEncoder().encode(adminPw));
     } catch (e) {
       console.error(e);
-      if (e instanceof JsonWebTokenError) {
+      if (e instanceof Error) {
         return new Response(e.message, {
-          status: 401,
-          headers: {
-            "Set-Cookie": "token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
-          },
-        });
-      } else {
-        return new Response(null, {
           status: 401,
           headers: {
             "Set-Cookie": "token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",

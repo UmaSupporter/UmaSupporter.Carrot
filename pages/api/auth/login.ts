@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import getConfig from "next/config";
 import { sha512 } from "js-sha512";
-import jwt from "jsonwebtoken";
+import { SignJWT } from "jose";
 import { setCookies } from "cookies-next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -14,7 +14,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!id || !password) return res.status(400).end();
     if (id !== adminId || sha512(password) !== sha512(adminPw)) return res.status(401).end();
 
-    const token = jwt.sign({ id, password: sha512(password) }, adminPw, { expiresIn: "7d" });
+    const token = await new SignJWT({ id })
+      .setProtectedHeader({ alg: "HS512" })
+      .setExpirationTime("7d")
+      .sign(new TextEncoder().encode(adminPw));
     setCookies("token", token, {
       req,
       res,
