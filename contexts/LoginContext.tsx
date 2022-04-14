@@ -81,7 +81,13 @@ const LoginContextProvider: FC = ({ children }) => {
     }
   }
 
-  const login = () => setLogin(true);
+  const login = () => {
+    push({
+      type: "success",
+      message: "성공적으로 로그인되었습니다.",
+    });
+    setLogin(true);
+  };
   const logout = () => setLogin(false);
 
   if (!isLogin) {
