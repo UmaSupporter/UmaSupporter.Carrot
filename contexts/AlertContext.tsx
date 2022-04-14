@@ -4,8 +4,8 @@ import { AnimatePresence } from "framer-motion";
 
 interface IAlert {
   type: "info" | "success" | "warning" | "error";
-  title?: string;
-  message: string;
+  title: string;
+  message?: string;
 }
 
 interface IAlertsWithId extends IAlert {

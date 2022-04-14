@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 interface IAlertProps {
   close(): void;
   type: "info" | "success" | "warning" | "error";
-  title?: string;
-  message: string;
+  title: string;
+  message?: string;
 }
 
 const Icon = ({ type }: { type: IAlertProps["type"] }) => {
@@ -100,8 +100,8 @@ export function Alert({ close, type, title, message }: IAlertProps) {
       <div>
         <Icon type={type} />
         <div className={"flex flex-col items-start gap-0"}>
-          {!!title && <h3 className="font-bold">{title}</h3>}
-          <p>{message}</p>
+          <h3 className={"text-xl font-bold"}>{title}</h3>
+          {!!message && <p className={"text-xs"}>{message}</p>}
         </div>
       </div>
       <div className="flex-none">
