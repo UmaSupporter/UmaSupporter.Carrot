@@ -4,18 +4,18 @@ import { AnimatePresence } from "framer-motion";
 
 interface IAlert {
   type: "info" | "success" | "warning" | "error";
-  title?: string;
-  message: string;
+  title: string;
+  message?: string;
 }
 
 interface IAlertsWithId extends IAlert {
-  id: number;
+  id: string;
 }
 
 interface IAlertContext {
   alerts: IAlertsWithId[];
   push(alert: IAlert): void;
-  close(id: number): void;
+  close(id: string): void;
 }
 
 const doNothing = () => null;
@@ -29,8 +29,12 @@ export const AlertContext = createContext<IAlertContext>({
 const AlertContextProvider: FC = ({ children }) => {
   const [alerts, setAlerts] = useState<IAlertsWithId[]>([]);
 
-  const push = (alert: IAlert) => setAlerts((prev) => [...prev, { id: +new Date(), ...alert }]);
-  const close = (id: number) => setAlerts((prev) => prev.filter((a) => a.id !== id));
+  const push = (alert: IAlert) =>
+    setAlerts((prev) => [
+      ...prev,
+      { id: `${String(Date.now()) + alert.title + String(Math.random() * 100)}`, ...alert },
+    ]);
+  const close = (id: string) => setAlerts((prev) => prev.filter((a) => a.id !== id));
 
   return (
     <AlertContext.Provider
@@ -40,7 +44,7 @@ const AlertContextProvider: FC = ({ children }) => {
         close,
       }}
     >
-      <aside className={"fixed top-8 inset-x-4 container mx-auto flex flex-col gap-4"}>
+      <aside className={"fixed z-60 top-8 inset-x-4 container mx-auto flex flex-col gap-4"}>
         <AnimatePresence>
           {alerts.map(({ id, type, title, message }) => (
             <Alert key={id} type={type} title={title} message={message} close={() => close(id)} />

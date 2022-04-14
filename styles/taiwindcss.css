@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components {
-    
+@layer components {}
+
+.prop-alert-success {
+    background-color: hsl(var(--su) / var(--tw-bg-opacity))
+}
+.prop-alert-error {
+    background-color: hsl(var(--er) / var(--tw-bg-opacity))
+}
+.prop-alert-warning {
+    background-color: hsl(var(--wa) / var(--tw-bg-opacity))
+}
+.prop-alert-info {
+    background-color: hsl(var(--in) / var(--tw-bg-opacity))
 }
