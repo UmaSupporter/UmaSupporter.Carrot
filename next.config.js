@@ -15,9 +15,9 @@ function getExcludedConsole() {
   return excluded;
 }
 
-const HOST = `${process.env.VERCEL || process.env.HTTPS ? "https" : "http"}://${
-  process.env.HOST || process.env.VERCEL_URL || "localhost:3000"
-}`;
+const HOST = process.env.VERCEL
+  ? ""
+  : `${process.env.HTTPS ? "https" : "http"}://${process.env.HOST || "localhost:3000"}`;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -33,7 +33,7 @@ const nextConfig = {
   },
   serverRuntimeConfig: {
     CONFIG: {
-      API_HOST: HOST,
+      API_HOST: HOST || "",
       API_PASSWORD: process.env.API_PASSWORD,
     },
   },
@@ -41,7 +41,7 @@ const nextConfig = {
     VERCEL_ENV,
     COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA || "local-development",
     CONFIG: {
-      API_HOST: HOST,
+      API_HOST: HOST || "",
     },
   },
 };
