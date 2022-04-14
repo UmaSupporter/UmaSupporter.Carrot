@@ -28,5 +28,9 @@ export async function middleware(req: NextRequest) {
         });
       }
     }
+  } else {
+    return new Response(null, {
+      status: 401,
+    });
   }
 }
