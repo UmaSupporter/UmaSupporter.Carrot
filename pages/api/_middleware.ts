@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { jwtVerify } from "jose";
 
 export async function middleware(req: NextRequest) {
-  if (req.page.name === "/api/auth/login") return;
+  if (req.nextUrl.pathname === "/api/auth/login") return;
 
   const adminPw = process.env.ADMIN_PW || "";
   const authorization = req.headers.get("Authorization");
