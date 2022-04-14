@@ -35,6 +35,8 @@ const nextConfig = {
     CONFIG: {
       API_HOST: HOST || "",
       API_PASSWORD: process.env.API_PASSWORD,
+      adminId: process.env.ADMIN_ID,
+      adminPw: process.env.ADMIN_PW,
     },
   },
   publicRuntimeConfig: {
