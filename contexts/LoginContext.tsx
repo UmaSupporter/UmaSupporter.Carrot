@@ -2,6 +2,8 @@ import { createContext, FC, FormEvent, useState } from "react";
 import { FormElement } from "types/formElement";
 import instance from "utils/requester";
 import { useAlertContext } from "hooks/useAlertContext";
+import { getCookie } from "cookies-next";
+import useAsyncEffect from "use-async-effect";
 
 interface ILoginContext {
   isLogin: boolean;
@@ -20,6 +22,24 @@ const LoginContextProvider: FC = ({ children }) => {
   const [isLogin, setLogin] = useState<boolean>(false);
   const [idError, setIdError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+
+  useAsyncEffect(async () => {
+    // early return when user login
+    if (isLogin) return;
+
+    const token = getCookie("token");
+
+    // early return when token is undefined
+    if (!token) return;
+
+    // do login with token
+    try {
+      await instance.get("/auth/ping");
+      login();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [isLogin]);
 
   async function handleSubmit(event: FormEvent<FormElement>) {
     event.preventDefault();
@@ -61,13 +81,8 @@ const LoginContextProvider: FC = ({ children }) => {
     }
   }
 
-  function login() {
-    setLogin(true);
-  }
-
-  function logout() {
-    setLogin(false);
-  }
+  const login = () => setLogin(true);
+  const logout = () => setLogin(false);
 
   if (!isLogin) {
     return (
