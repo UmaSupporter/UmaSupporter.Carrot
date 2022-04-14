@@ -57,6 +57,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:18.0.0"],\
             ["tailwindcss", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:3.0.23"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["use-async-effect", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:2.2.5"],\
             ["vercel", "npm:24.0.1"]\
           ],\
           "linkType": "SOFT"\
@@ -1196,6 +1197,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-dom", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:18.0.0"],\
             ["tailwindcss", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:3.0.23"],\
             ["typescript", "patch:typescript@npm%3A4.6.3#~builtin<compat/typescript>::version=4.6.3&hash=bda367"],\
+            ["use-async-effect", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:2.2.5"],\
             ["vercel", "npm:24.0.1"]\
           ],\
           "linkType": "SOFT"\
@@ -5387,6 +5389,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["url-parse-lax", "npm:3.0.0"],\
             ["prepend-http", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["use-async-effect", [\
+        ["npm:2.2.5", {\
+          "packageLocation": "./.yarn/cache/use-async-effect-npm-2.2.5-fc447cdb44-69cdaecbcb.zip/node_modules/use-async-effect/",\
+          "packageDependencies": [\
+            ["use-async-effect", "npm:2.2.5"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:2.2.5", {\
+          "packageLocation": "./.yarn/__virtual__/use-async-effect-virtual-7d1349947f/0/cache/use-async-effect-npm-2.2.5-fc447cdb44-69cdaecbcb.zip/node_modules/use-async-effect/",\
+          "packageDependencies": [\
+            ["use-async-effect", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:2.2.5"],\
+            ["@types/react", "npm:17.0.43"],\
+            ["react", "npm:18.0.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
