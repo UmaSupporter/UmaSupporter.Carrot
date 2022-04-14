@@ -43,6 +43,7 @@ const nextConfig = {
     VERCEL_ENV,
     COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA || "local-development",
     CONFIG: {
+      API_PASSWORD: process.env.API_PASSWORD,
       API_HOST: HOST || "",
     },
   },
