@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import jwt, { JsonWebTokenError } from "jsonwebtoken";
 
 export async function middleware(req: NextRequest) {
+  if (req.page.name === "/api/auth/login") return;
+
   const adminPw = process.env.ADMIN_PW || "";
   const authorization = req.headers.get("Authorization");
   if (authorization) {
