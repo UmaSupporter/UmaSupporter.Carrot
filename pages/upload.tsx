@@ -7,6 +7,7 @@ import { FormElement } from "types/formElement";
 import { formatBytes } from "utils/formatBytes";
 import { toBase64 } from "utils/toBase64";
 import getConfig from "next/config";
+import { fileToFormData } from "utils/fileToFormData";
 
 enum UploadStatus {
   PENDING = "pending",
@@ -63,7 +64,7 @@ const Home: NextPage = () => {
     try {
       stateChange(index, UploadStatus.UPLOAD);
       // upload image
-      await instance.post("//suppoter.sonagi.dev/upload", file, {
+      await instance.post("//suppoter.sonagi.dev/upload", await fileToFormData(file), {
         headers: {
           Authorization: API_PASSWORD,
           "Content-Type": "multipart/form-data",
