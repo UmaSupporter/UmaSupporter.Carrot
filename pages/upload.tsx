@@ -63,7 +63,7 @@ const Home: NextPage = () => {
     try {
       stateChange(index, UploadStatus.UPLOAD);
       // upload image
-      await instance.post("https://suppoter.sonagi.dev/upload", file, {
+      await instance.post("//suppoter.sonagi.dev/upload", file, {
         headers: {
           Authorization: API_PASSWORD,
           "Content-Type": "multipart/form-data",
