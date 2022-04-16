@@ -5,7 +5,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import { FormElement } from "types/formElement";
 import { formatBytes } from "utils/formatBytes";
-import { toBase64 } from "utils/toBase64";
 import getConfig from "next/config";
 import { fileToFormData } from "utils/fileToFormData";
 
@@ -105,7 +104,7 @@ const Home: NextPage = () => {
       await Promise.all(
         Array.from(files).map(async (file) => ({
           file,
-          image: (await toBase64(file)) as string,
+          image: URL.createObjectURL(file),
           name: file.name,
           size: formatBytes(file.size),
           progress: 0,
@@ -115,7 +114,8 @@ const Home: NextPage = () => {
     );
   }
 
-  const handleFileDelete = (name: string) => setFiles((prev) => prev.filter(({ name: fName }) => fName !== name));
+  const handleFileDelete = (name: string) =>
+    setFiles((prev) => prev.filter(({ name: fName, image }) => (fName === name ? URL.revokeObjectURL(image) : true)));
 
   return (
     <div className={"container mx-auto px-4 py-8"}>
