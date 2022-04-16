@@ -67,7 +67,6 @@ const Home: NextPage = () => {
       await instance.post("//suppoter.sonagi.dev/upload", await fileToFormData(file), {
         headers: {
           Authorization: API_PASSWORD,
-          "Content-Type": "multipart/form-data",
         },
         onUploadProgress(event) {
           setProgress(index, event.loaded / event.total);
