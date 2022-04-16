@@ -1,3 +1,5 @@
 export async function fileToFormData(file: File) {
-  return new FormData().append("files", file);
+  const frmData = new FormData();
+  frmData.append("file", file);
+  return frmData;
 }
