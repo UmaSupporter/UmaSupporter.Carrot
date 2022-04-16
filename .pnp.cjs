@@ -47,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
             ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
+            ["immer", "npm:9.0.12"],\
             ["jose", "npm:4.6.1"],\
             ["js-sha512", "npm:0.8.0"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
@@ -1167,6 +1168,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:8.5.0"],\
             ["eslint-plugin-prettier", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:4.0.0"],\
             ["framer-motion", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:6.2.10"],\
+            ["immer", "npm:9.0.12"],\
             ["jose", "npm:4.6.1"],\
             ["js-sha512", "npm:0.8.0"],\
             ["next", "virtual:04feca568b9eb3963b68ba7d82fcbbd07b8dd4bad1e6c19e07740cb816b0c91c30de1c144640830be1c84cbe8574dabb645d5a88b2006ef750b485182f51b0d6#npm:12.1.4"],\
@@ -2898,6 +2900,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/ignore-npm-5.2.0-fc4b58a4f3-6b1f926792.zip/node_modules/ignore/",\
           "packageDependencies": [\
             ["ignore", "npm:5.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["immer", [\
+        ["npm:9.0.12", {\
+          "packageLocation": "./.yarn/cache/immer-npm-9.0.12-e8cd7358fa-bcbec6d76d.zip/node_modules/immer/",\
+          "packageDependencies": [\
+            ["immer", "npm:9.0.12"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -1,12 +1,13 @@
 import instance from "utils/requester";
 import type { NextPage } from "next";
 import { useAlertContext } from "hooks/useAlertContext";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, Reducer, useReducer } from "react";
 import Image from "next/image";
 import { FormElement } from "types/formElement";
 import { formatBytes } from "utils/formatBytes";
 import getConfig from "next/config";
 import { fileToFormData } from "utils/fileToFormData";
+import produce from "immer";
 
 enum UploadStatus {
   PENDING = "pending",
@@ -24,51 +25,91 @@ interface IFilesMeta {
   status: UploadStatus;
 }
 
+type Actions =
+  | {
+      type: "changeStatus";
+      index: number;
+      status: UploadStatus;
+    }
+  | {
+      type: "changeProgress";
+      index: number;
+      progress: number;
+    }
+  | {
+      type: "setFiles";
+      files: IFilesMeta[];
+    }
+  | {
+      type: "deleteFile";
+      name: string;
+    };
+
+const reducer: Reducer<IFilesMeta[], Actions> = (draft, action) => {
+  switch (action.type) {
+    case "changeStatus":
+      draft[action.index].status = action.status;
+      break;
+    case "changeProgress":
+      draft[action.index].progress = action.progress;
+      break;
+    case "setFiles":
+      return action.files;
+    case "deleteFile":
+      const index = draft.findIndex((file) => file.name === action.name);
+      if (index !== -1) {
+        URL.revokeObjectURL(draft[index].image);
+        draft.splice(index, 1);
+      }
+      break;
+  }
+
+  return draft;
+};
+
+const curriedReducer = produce(reducer);
+
 const Home: NextPage = () => {
   const { API_PASSWORD } = getConfig().publicRuntimeConfig.CONFIG;
   const { push } = useAlertContext();
 
-  const [files, setFiles] = useState<IFilesMeta[]>([]);
+  const [files, dispatch] = useReducer(curriedReducer, []);
 
-  function stateChange(index: number, status: UploadStatus) {
-    setFiles((prev) =>
-      prev.map((file, i) =>
-        index === i
-          ? {
-              ...file,
-              status,
-            }
-          : file,
-      ),
-    );
-  }
+  const changeStatus = (index: number, status: UploadStatus) =>
+    dispatch({
+      type: "changeStatus",
+      index,
+      status,
+    });
 
-  function setProgress(index: number, progress: number) {
-    setFiles((prev) =>
-      prev.map((file, i) =>
-        index === i
-          ? {
-              ...file,
-              progress,
-            }
-          : file,
-      ),
-    );
-  }
+  const changeProgress = (index: number, progress: number) =>
+    dispatch({
+      type: "changeProgress",
+      index,
+      progress,
+    });
+
+  const setFiles = (files: IFilesMeta[]) =>
+    dispatch({
+      type: "setFiles",
+      files,
+    });
 
   async function upload(file: File) {
     const index = files.findIndex((item) => item.name === file.name);
-    stateChange(index, UploadStatus.UPLOAD);
+    changeStatus(index, UploadStatus.UPLOAD);
+
+    console.log(await fileToFormData(file));
 
     try {
-      stateChange(index, UploadStatus.UPLOAD);
+      changeStatus(index, UploadStatus.UPLOAD);
       // upload image
       await instance.post("//suppoter.sonagi.dev/upload", await fileToFormData(file), {
         headers: {
           Authorization: API_PASSWORD,
         },
         onUploadProgress(event) {
-          setProgress(index, event.loaded / event.total);
+          changeProgress(index, event.loaded / event.total);
         },
       });
       // notification
@@ -76,7 +117,7 @@ const Home: NextPage = () => {
         type: "success",
         message: `${file.name} 업로드가 성공했습니다.`,
       });
-      stateChange(index, UploadStatus.SUCCESS);
+      changeStatus(index, UploadStatus.SUCCESS);
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
@@ -86,8 +127,8 @@ const Home: NextPage = () => {
           title: `${file.name} 업로드가 실패했습니다.`,
           message: e.message,
         });
-        setProgress(index, 100);
-        stateChange(index, UploadStatus.ERROR);
+        changeProgress(index, 100);
+        changeStatus(index, UploadStatus.ERROR);
       }
     }
   }
@@ -115,7 +156,10 @@ const Home: NextPage = () => {
   }
 
   const handleFileDelete = (name: string) =>
-    setFiles((prev) => prev.filter(({ name: fName, image }) => (fName === name ? URL.revokeObjectURL(image) : true)));
+    dispatch({
+      type: "deleteFile",
+      name,
+    });
 
   return (
     <div className={"container mx-auto px-4 py-8"}>
