@@ -95,7 +95,7 @@ const Home: NextPage = () => {
 
   async function handleSubmit(event: FormEvent<FormElement>) {
     event.preventDefault();
-    await Promise.all(files.map(async ({ file }) => await upload(file)));
+    await Promise.all(files.map(({ file }) => upload(file)));
   }
 
   async function handleChange(event: ChangeEvent<HTMLInputElement>) {
