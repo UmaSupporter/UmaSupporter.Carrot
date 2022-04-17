@@ -8,6 +8,7 @@ import { formatBytes } from "utils/formatBytes";
 import { fileToFormData } from "utils/fileToFormData";
 import produce from "immer";
 import axios from "axios";
+import { useModalContext } from "hooks/useModalContext";
 
 enum UploadStatus {
   PENDING = "pending",
@@ -71,6 +72,7 @@ const curriedReducer = produce(reducer);
 
 const Home: NextPage = () => {
   const { push } = useAlertContext();
+  const { push: modal } = useModalContext();
 
   const [files, dispatch] = useReducer(curriedReducer, []);
 
@@ -110,7 +112,36 @@ const Home: NextPage = () => {
       });
 
       if (exists)
-        throw new Error("중복된 파일이 있습니다.");
+        await new Promise((resolve) =>
+          modal({
+            id: "file_is_duplicated",
+            title: "파일이 중복되었어요!",
+            message: "그렇다는데요?",
+            actions: [
+              {
+                content: "덮어쓰기",
+                color: "primary",
+                callback() {
+                  resolve("");
+                },
+              },
+              {
+                content: "취소",
+                color: "ghost",
+                callback() {
+                  push({
+                    type: "error",
+                    title: `${file.name} 업로드가 실패했습니다.`,
+                    message: "사용자가 업로드를 취소했습니다.",
+                  });
+                  changeProgress(index, 100);
+                  changeStatus(index, UploadStatus.ERROR);
+                },
+              },
+            ],
+          }),
+        );
+
       const {
         data: { endpoint },
       } = await instance.get("/upload/sign", {
