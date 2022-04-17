@@ -5,9 +5,9 @@ import { ChangeEvent, FormEvent, Reducer, useReducer } from "react";
 import Image from "next/image";
 import { FormElement } from "types/formElement";
 import { formatBytes } from "utils/formatBytes";
-import getConfig from "next/config";
 import { fileToFormData } from "utils/fileToFormData";
 import produce from "immer";
+import axios from "axios";
 
 enum UploadStatus {
   PENDING = "pending",
@@ -70,7 +70,6 @@ const reducer: Reducer<IFilesMeta[], Actions> = (draft, action) => {
 const curriedReducer = produce(reducer);
 
 const Home: NextPage = () => {
-  const { API_PASSWORD } = getConfig().publicRuntimeConfig.CONFIG;
   const { push } = useAlertContext();
 
   const [files, dispatch] = useReducer(curriedReducer, []);
@@ -101,11 +100,27 @@ const Home: NextPage = () => {
 
     try {
       changeStatus(index, UploadStatus.UPLOAD);
-      // upload image
-      await instance.post("//suppoter.sonagi.dev/upload", await fileToFormData(file), {
-        headers: {
-          Authorization: API_PASSWORD,
+      // check if file exists
+      const {
+        data: { exists },
+      } = await instance.get(`/upload/check`, {
+        params: {
+          filename: file.name,
         },
+      });
+
+      if (exists)
+        throw new Error("중복된 파일이 있습니다.");
+      const {
+        data: { endpoint },
+      } = await instance.get("/upload/sign", {
+        params: {
+          filename: file.name,
+        },
+      });
+
+      // upload image
+      await axios.put(endpoint, await fileToFormData(file), {
         onUploadProgress(event) {
           changeProgress(index, event.loaded / event.total);
         },
