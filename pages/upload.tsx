@@ -99,8 +99,6 @@ const Home: NextPage = () => {
     const index = files.findIndex((item) => item.name === file.name);
     changeStatus(index, UploadStatus.UPLOAD);
 
-    console.log(await fileToFormData(file));
-
     try {
       changeStatus(index, UploadStatus.UPLOAD);
       // upload image
