@@ -1,8 +1,9 @@
 import { createContext, FC, Reducer, useReducer } from "react";
 import { Color } from "types/tailwindcss";
 import produce from "immer";
+import { Modal } from "components/Modal";
 
-interface IModal {
+export interface IModal {
   id: string;
   callback(action: string): void;
   title: string;
@@ -95,26 +96,5 @@ const ModalContextProvider: FC = ({ children }) => {
     </ModalContext.Provider>
   );
 };
-
-function Modal({ title, message, actions, callback }: IModal) {
-  return (
-    <>
-      <input type="checkbox" className="modal-toggle" defaultChecked={true} />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">{title}</h3>
-          <p className="py-4 whitespace-pre-line keep-all">{message}</p>
-          <div className="modal-action">
-            {actions.map(({ action, color, content }) => (
-              <label key={action} onClick={() => callback(action)} className={`btn btn-${color}`}>
-                {content}
-              </label>
-            ))}
-          </div>
-        </div>
-      </div>
-    </>
-  );
-}
 
 export default ModalContextProvider;
