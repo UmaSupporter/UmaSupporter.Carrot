@@ -83,7 +83,7 @@ const ModalContextProvider: FC = ({ children }) => {
 
   const closeWithAction = (id: string, callback: Function) => {
     close(id);
-    if (callback) callback();
+    callback?.();
   };
 
   return (
