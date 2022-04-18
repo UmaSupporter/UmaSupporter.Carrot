@@ -14,22 +14,22 @@ interface IAlertsWithId extends IAlert {
 
 interface IAlertContext {
   alerts: IAlertsWithId[];
-  push(alert: IAlert): void;
   close(id: string): void;
+  alert(alert: IAlert): void;
 }
 
 const doNothing = () => null;
 
 export const AlertContext = createContext<IAlertContext>({
   alerts: [],
-  push: doNothing,
   close: doNothing,
+  alert: doNothing,
 });
 
 const AlertContextProvider: FC = ({ children }) => {
   const [alerts, setAlerts] = useState<IAlertsWithId[]>([]);
 
-  const push = (alert: IAlert) =>
+  const alert = (alert: IAlert) =>
     setAlerts((prev) => [
       ...prev,
       { id: `${String(Date.now()) + alert.title + String(Math.random() * 100)}`, ...alert },
@@ -40,8 +40,8 @@ const AlertContextProvider: FC = ({ children }) => {
     <AlertContext.Provider
       value={{
         alerts,
-        push,
         close,
+        alert,
       }}
     >
       <aside className={"fixed z-50 top-8 inset-x-4 container mx-auto flex flex-col gap-4"}>

@@ -71,7 +71,7 @@ const reducer: Reducer<IFilesMeta[], Actions> = (draft, action) => {
 const curriedReducer = produce(reducer);
 
 const Home: NextPage = () => {
-  const { push } = useAlertContext();
+  const { alert } = useAlertContext();
   const { modal } = useModalContext();
 
   const [files, dispatch] = useReducer(curriedReducer, []);
@@ -147,7 +147,7 @@ const Home: NextPage = () => {
         },
       });
       // notification
-      push({
+      alert({
         type: "success",
         title: `${file.name} 업로드가 성공했습니다.`,
       });
@@ -156,7 +156,7 @@ const Home: NextPage = () => {
       console.error(e);
       if (e instanceof Error) {
         // notification
-        push({
+        alert({
           type: "error",
           title: `${file.name} 업로드가 실패했습니다.`,
           message: e.message,
