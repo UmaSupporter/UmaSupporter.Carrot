@@ -159,7 +159,7 @@ const Home: NextPage = () => {
       // notification
       push({
         type: "success",
-        message: `${file.name} 업로드가 성공했습니다.`,
+        title: `${file.name} 업로드가 성공했습니다.`,
       });
       changeStatus(index, UploadStatus.SUCCESS);
     } catch (e) {
