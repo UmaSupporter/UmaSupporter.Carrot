@@ -14,7 +14,6 @@ interface IAlertsWithId extends IAlert {
 
 interface IAlertContext {
   alerts: IAlertsWithId[];
-  close(id: string): void;
   alert(alert: IAlert): void;
 }
 
@@ -22,7 +21,6 @@ const doNothing = () => null;
 
 export const AlertContext = createContext<IAlertContext>({
   alerts: [],
-  close: doNothing,
   alert: doNothing,
 });
 
@@ -40,7 +38,6 @@ const AlertContextProvider: FC = ({ children }) => {
     <AlertContext.Provider
       value={{
         alerts,
-        close,
         alert,
       }}
     >
