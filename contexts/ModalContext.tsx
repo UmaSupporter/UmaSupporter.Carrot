@@ -2,7 +2,7 @@ import { createContext, FC, Reducer, useReducer } from "react";
 import produce from "immer";
 
 interface IModalActions {
-  callback: Function;
+  callback: () => void;
   content: string;
   color:
     | "primary"
