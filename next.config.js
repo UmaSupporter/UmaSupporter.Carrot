@@ -38,11 +38,19 @@ const nextConfig = {
       adminId: process.env.ADMIN_ID,
       adminPw: process.env.ADMIN_PW,
     },
+    AWS: {
+      region: process.env.AWS_S3_REGION,
+      Bucket: process.env.AWS_S3_BUCKET,
+      path: process.env.AWS_S3_PATH,
+      accessKeyId: process.env.AWS_S3_ACCESS_ID,
+      secretAccessKey: process.env.AWS_S3_ACCESS_KEY,
+    },
   },
   publicRuntimeConfig: {
     VERCEL_ENV,
     COMMIT_SHA: process.env.VERCEL_GIT_COMMIT_SHA || "local-development",
     CONFIG: {
+      API_PASSWORD: process.env.API_PASSWORD,
       API_HOST: HOST || "",
     },
   },

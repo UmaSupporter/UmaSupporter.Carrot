@@ -5,6 +5,7 @@ import getConfig from "next/config";
 import type { AppProps } from "next/app";
 import AlertContextProvider from "contexts/AlertContext";
 import LoginContextProvider from "contexts/LoginContext";
+import ModalContextProvider from "contexts/ModalContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { publicRuntimeConfig } = getConfig();
@@ -16,9 +17,11 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <AlertContextProvider>
-      <LoginContextProvider>
-        <Component {...pageProps} />
-      </LoginContextProvider>
+      <ModalContextProvider>
+        <LoginContextProvider>
+          <Component {...pageProps} />
+        </LoginContextProvider>
+      </ModalContextProvider>
     </AlertContextProvider>
   );
 }
