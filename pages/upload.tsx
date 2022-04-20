@@ -117,14 +117,14 @@ const Home: NextPage = () => {
           message: `${file.name} 이랑 같은 이름을 가진 파일이 서버에 올라가있어요.\n이 파일을 덮어씌우시겠어요?`,
           actions: [
             {
+              id: "overwrite",
               content: "덮어쓰기",
               color: "primary",
-              action: "overwrite",
             },
             {
+              id: "cancel",
               content: "취소",
               color: "ghost",
-              action: "cancel",
             },
           ],
         });

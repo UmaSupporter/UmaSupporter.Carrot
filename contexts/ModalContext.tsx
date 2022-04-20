@@ -14,8 +14,8 @@ export interface IModal {
 type IModalInput = Omit<IModal, "id" | "callback">;
 
 interface IActions {
+  id: string;
   color: Color;
-  action: string;
   content: string;
 }
 
