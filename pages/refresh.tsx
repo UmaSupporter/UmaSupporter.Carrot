@@ -5,7 +5,7 @@ import { ValidationError } from "utils/error";
 import { useAlertContext } from "hooks/useAlertContext";
 
 const Home: NextPage = () => {
-  const { push } = useAlertContext();
+  const { alert } = useAlertContext();
   const [uma_id, setUmaId] = useState<string>("");
   const [umaError, setUmaError] = useState<string>("");
 
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       if (e instanceof ValidationError) {
         setUmaError(e.message);
       } else if (e instanceof Error) {
-        push({
+        alert({
           type: "error",
           title: "Uma의 정보를 수정할 수 없었습니다.",
           message: e.message,
@@ -45,7 +45,7 @@ const Home: NextPage = () => {
       if (e instanceof ValidationError) {
         setUmaError(e.message);
       } else if (e instanceof Error) {
-        push({
+        alert({
           type: "error",
           title: "Card의 정보를 수정할 수 없었습니다.",
           message: e.message,

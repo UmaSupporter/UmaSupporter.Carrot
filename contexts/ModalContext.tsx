@@ -1,55 +1,50 @@
 import { createContext, FC, Reducer, useReducer } from "react";
+import { Color } from "types/tailwindcss";
 import produce from "immer";
+import { Modal } from "components/Modal";
 
-interface IModalActions {
-  callback: () => void;
-  content: string;
-  color:
-    | "primary"
-    | "secondary"
-    | "accent"
-    | "info"
-    | "success"
-    | "warning"
-    | "error"
-    | "ghost"
-    | "link"
-    | "outline"
-    | "active"
-    | "disabled";
-}
-
-interface IModal {
+export interface IModal {
   id: string;
+  callback(action: string): void;
   title: string;
   message: string;
-  actions: IModalActions[];
+  actions: IActions[];
+}
+
+type IModalInput = Omit<IModal, "id" | "callback">;
+
+interface IActions {
+  id: string;
+  color: Color;
+  content: string;
 }
 
 interface IModalContext {
   modals: IModal[];
-  push(data: IModal): void;
-  close(id: string): void;
+  modal(input: IModalInput): Promise<string>;
 }
 
-const doNothing = async () => "";
+export const ModalContext = createContext<IModalContext>({
+  modals: [],
+  modal: async () => "",
+});
 
-type Actions =
+type Action =
   | {
-      type: "push";
-      data: IModal;
+      type: "createModal";
+      input: IModal;
     }
   | {
-      type: "close";
+      type: "resolveModal";
       id: string;
     };
 
-const reducer: Reducer<IModal[], Actions> = (draft, action) => {
+const reducer: Reducer<IModal[], Action> = (draft, action) => {
   switch (action.type) {
-    case "push":
-      draft.push(action.data);
+    case "createModal":
+      draft.push(action.input);
       break;
-    case "close":
+    case "resolveModal":
       const index = draft.findIndex((modal) => modal.id === action.id);
       if (index !== -1) draft.splice(index, 1);
       break;
@@ -58,61 +53,46 @@ const reducer: Reducer<IModal[], Actions> = (draft, action) => {
   return draft;
 };
 
-export const ModalContext = createContext<IModalContext>({
-  modals: [],
-  push: doNothing,
-  close: doNothing,
-});
-
 const curriedReducer = produce(reducer);
 
 const ModalContextProvider: FC = ({ children }) => {
   const [modals, dispatch] = useReducer(curriedReducer, []);
 
-  const push = (modal: IModal) =>
-    dispatch({
-      type: "push",
-      data: modal,
-    });
+  const modal = (input: IModalInput) =>
+    new Promise<string>((resolve) => {
+      const id = String(Math.random() * 10 ** 10);
+      const callback = (action: string) => {
+        resolve(action);
+        dispatch({
+          type: "resolveModal",
+          id,
+        });
+      };
 
-  const close = (id: string) =>
-    dispatch({
-      type: "close",
-      id,
+      // create modal
+      dispatch({
+        type: "createModal",
+        input: {
+          ...input,
+          id,
+          callback,
+        },
+      });
     });
-
-  const closeWithAction = (id: string, callback: Function) => {
-    close(id);
-    callback?.();
-  };
 
   return (
     <ModalContext.Provider
       value={{
         modals,
-        push,
-        close,
+        modal,
       }}
     >
       {children}
-      {modals.map((modal) => (
-        <div key={modal.id}>
-          <input type="checkbox" className="modal-toggle" defaultChecked={true} />
-          <div className="modal modal-bottom sm:modal-middle">
-            <div className="modal-box">
-              <h3 className="font-bold text-lg">{modal.title}</h3>
-              <p className="py-4">{modal.message}</p>
-              <div className="modal-action">
-                {modal.actions.map(({ color, content, callback }, i) => (
-                  <label key={i} onClick={() => closeWithAction(modal.id, callback)} className={`btn btn-${color}`}>
-                    {content}
-                  </label>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
+      <div id={"modal-container"}>
+        {modals.map((modal) => (
+          <Modal key={modal.id} {...modal} />
+        ))}
+      </div>
     </ModalContext.Provider>
   );
 };

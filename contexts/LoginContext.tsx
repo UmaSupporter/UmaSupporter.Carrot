@@ -18,7 +18,7 @@ export const LoginContext = createContext<ILoginContext>({
 });
 
 const LoginContextProvider: FC = ({ children }) => {
-  const { push } = useAlertContext();
+  const { alert } = useAlertContext();
   const [isLogin, setLogin] = useState<boolean>(false);
   const [idError, setIdError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
@@ -72,7 +72,7 @@ const LoginContextProvider: FC = ({ children }) => {
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
-        push({
+        alert({
           type: "error",
           title: "로그인에 실패했습니다.",
           message: "아이디 / 비밀번호가 일치하지 않습니다.",
@@ -82,7 +82,7 @@ const LoginContextProvider: FC = ({ children }) => {
   }
 
   const login = () => {
-    push({
+    alert({
       type: "success",
       title: "성공적으로 로그인되었습니다.",
     });

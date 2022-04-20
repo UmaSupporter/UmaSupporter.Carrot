@@ -71,8 +71,8 @@ const reducer: Reducer<IFilesMeta[], Actions> = (draft, action) => {
 const curriedReducer = produce(reducer);
 
 const Home: NextPage = () => {
-  const { push } = useAlertContext();
-  const { push: modal } = useModalContext();
+  const { alert } = useAlertContext();
+  const { modal } = useModalContext();
 
   const [files, dispatch] = useReducer(curriedReducer, []);
 
@@ -111,36 +111,26 @@ const Home: NextPage = () => {
         },
       });
 
-      if (exists)
-        await new Promise((resolve) =>
-          modal({
-            id: "file_is_duplicated",
-            title: "파일이 중복되었어요!",
-            message: "그렇다는데요?",
-            actions: [
-              {
-                content: "덮어쓰기",
-                color: "primary",
-                callback() {
-                  resolve("");
-                },
-              },
-              {
-                content: "취소",
-                color: "ghost",
-                callback() {
-                  push({
-                    type: "error",
-                    title: `${file.name} 업로드가 실패했습니다.`,
-                    message: "사용자가 업로드를 취소했습니다.",
-                  });
-                  changeProgress(index, 100);
-                  changeStatus(index, UploadStatus.ERROR);
-                },
-              },
-            ],
-          }),
-        );
+      if (exists) {
+        const action = await modal({
+          title: "파일이 중복되었어요!",
+          message: `${file.name} 이랑 같은 이름을 가진 파일이 서버에 올라가있어요.\n이 파일을 덮어씌우시겠어요?`,
+          actions: [
+            {
+              id: "overwrite",
+              content: "덮어쓰기",
+              color: "primary",
+            },
+            {
+              id: "cancel",
+              content: "취소",
+              color: "ghost",
+            },
+          ],
+        });
+
+        if (action === "cancel") throw new Error("사용자가 업로드를 취소했어요.");
+      }
 
       const {
         data: { endpoint },
@@ -157,16 +147,16 @@ const Home: NextPage = () => {
         },
       });
       // notification
-      push({
+      alert({
         type: "success",
-        message: `${file.name} 업로드가 성공했습니다.`,
+        title: `${file.name} 업로드가 성공했습니다.`,
       });
       changeStatus(index, UploadStatus.SUCCESS);
     } catch (e) {
       console.error(e);
       if (e instanceof Error) {
         // notification
-        push({
+        alert({
           type: "error",
           title: `${file.name} 업로드가 실패했습니다.`,
           message: e.message,
