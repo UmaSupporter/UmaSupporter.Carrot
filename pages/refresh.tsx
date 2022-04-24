@@ -14,14 +14,10 @@ const Home: NextPage = () => {
     setUmaId(e.target.value.replace(/\D\n/g, "").split("\n"));
   };
 
-  function validate() {
-    if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
-  }
-
-  async function updateUma() {
+  async function updateData(uma_id: string, endpoint: "uma" | "card") {
     try {
-      validate();
-      await instance.post(`/refresh/${uma_id}/uma`);
+      if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
+      await instance.post(`/refresh/${uma_id}/${endpoint}`);
     } catch (e) {
       console.log(e);
       if (e instanceof ValidationError) {
@@ -29,30 +25,16 @@ const Home: NextPage = () => {
       } else if (e instanceof Error) {
         alert({
           type: "error",
-          title: "Uma의 정보를 수정할 수 없었습니다.",
+          title: `${endpoint}의 정보를 수정할 수 없었습니다.`,
           message: e.message,
         });
       }
     }
   }
 
-  async function updateCard() {
-    try {
-      validate();
-      await instance.post(`/refresh/${uma_id}/card`);
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ValidationError) {
-        setUmaError(e.message);
-      } else if (e instanceof Error) {
-        alert({
-          type: "error",
-          title: "Card의 정보를 수정할 수 없었습니다.",
-          message: e.message,
-        });
-      }
-    }
-  }
+  const updateUma = () => Promise.all(uma_id.map((uma) => updateData(uma, "uma")));
+
+  const updateCard = () => Promise.all(uma_id.map((uma) => updateData(uma, "card")));
 
   async function updateAll() {
     await updateUma();
