@@ -6,22 +6,22 @@ import { useAlertContext } from "hooks/useAlertContext";
 
 const Home: NextPage = () => {
   const { alert } = useAlertContext();
-  const [uma_id, setUmaId] = useState<string>("");
+  const [uma_id, setUmaId] = useState<string[]>([]);
   const [umaError, setUmaError] = useState<string>("");
 
-  const handleUmaIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUmaIdChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUmaError("");
-    setUmaId(e.target.value.replace(/\D| /g, "") ?? "");
+    setUmaId(e.target.value.replace(/\D\n/g, "").split("\n"));
   };
 
-  function validate() {
-    if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
-  }
-
-  async function updateUma() {
+  async function updateData(uma_id: string, endpoint: "uma" | "card") {
     try {
-      validate();
-      await instance.post(`/refresh/${uma_id}/uma`);
+      if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
+      await instance.post(`/refresh/${uma_id}/${endpoint}`);
+      alert({
+        type: "success",
+        title: `${uma_id}의 정보를 업데이트 했습니다!`,
+      });
     } catch (e) {
       console.log(e);
       if (e instanceof ValidationError) {
@@ -29,30 +29,16 @@ const Home: NextPage = () => {
       } else if (e instanceof Error) {
         alert({
           type: "error",
-          title: "Uma의 정보를 수정할 수 없었습니다.",
+          title: `${endpoint}의 정보를 수정할 수 없었습니다.`,
           message: e.message,
         });
       }
     }
   }
 
-  async function updateCard() {
-    try {
-      validate();
-      await instance.post(`/refresh/${uma_id}/card`);
-    } catch (e) {
-      console.log(e);
-      if (e instanceof ValidationError) {
-        setUmaError(e.message);
-      } else if (e instanceof Error) {
-        alert({
-          type: "error",
-          title: "Card의 정보를 수정할 수 없었습니다.",
-          message: e.message,
-        });
-      }
-    }
-  }
+  const updateUma = () => Promise.all(uma_id.map((uma) => updateData(uma, "uma")));
+
+  const updateCard = () => Promise.all(uma_id.map((uma) => updateData(uma, "card")));
 
   async function updateAll() {
     await updateUma();
@@ -69,12 +55,11 @@ const Home: NextPage = () => {
           <div className="label">
             <span className="label-text">우마 아이디 입력</span>
           </div>
-          <input
-            type="text"
-            value={uma_id}
+          <textarea
+            value={uma_id.join("\n")}
             onChange={handleUmaIdChange}
-            className={["input input-bordered input-md w-full max-w-md", umaError ? "input-error" : ""].join(" ")}
-            placeholder="이곳에 말딸 아이디 입력"
+            className={["textarea textarea-bordered w-full max-w-md", umaError ? "textarea-error" : ""].join(" ")}
+            placeholder={"이곳에 말딸 아이디를 입력하세요.\n한줄에 하나의 말딸 아이디를 입력할 수 있습니다."}
           />
           <div className="label">
             <span className="label-text-alt text-error">{umaError}</span>
