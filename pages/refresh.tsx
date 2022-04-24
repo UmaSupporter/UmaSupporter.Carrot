@@ -6,12 +6,12 @@ import { useAlertContext } from "hooks/useAlertContext";
 
 const Home: NextPage = () => {
   const { alert } = useAlertContext();
-  const [uma_id, setUmaId] = useState<string>("");
+  const [uma_id, setUmaId] = useState<string[]>([]);
   const [umaError, setUmaError] = useState<string>("");
 
-  const handleUmaIdChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUmaIdChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setUmaError("");
-    setUmaId(e.target.value.replace(/\D| /g, "") ?? "");
+    setUmaId(e.target.value.replace(/\D\n/g, "").split("\n"));
   };
 
   function validate() {
@@ -69,11 +69,10 @@ const Home: NextPage = () => {
           <div className="label">
             <span className="label-text">우마 아이디 입력</span>
           </div>
-          <input
-            type="text"
-            value={uma_id}
+          <textarea
+            value={uma_id.join("\n")}
             onChange={handleUmaIdChange}
-            className={["input input-bordered input-md w-full max-w-md", umaError ? "input-error" : ""].join(" ")}
+            className={["textarea textarea-bordered w-full max-w-md", umaError ? "textarea-error" : ""].join(" ")}
             placeholder="이곳에 말딸 아이디 입력"
           />
           <div className="label">
