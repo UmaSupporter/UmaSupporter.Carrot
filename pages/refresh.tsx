@@ -18,6 +18,10 @@ const Home: NextPage = () => {
     try {
       if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
       await instance.post(`/refresh/${uma_id}/${endpoint}`);
+      alert({
+        type: "success",
+        title: `${uma_id}의 정보를 업데이트 했습니다!`,
+      });
     } catch (e) {
       console.log(e);
       if (e instanceof ValidationError) {
