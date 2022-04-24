@@ -8,6 +8,9 @@ const Home: NextPage = () => {
       <p className={"text-xl"}>🏃🏽‍♀️ 우마무스메 육성 도우미인 &apos;우마서포터&apos;의 오퍼레이팅 툴입니다.</p>
 
       <div className={"py-4 inline-flex flex-col gap-4"}>
+        <Link href={"/refresh"}>
+          <a className={"btn btn-primary"}>카드 / 우마 정보 업데이트하기</a>
+        </Link>
         <Link href={"/upload"}>
           <a className={"btn btn-primary"}>이미지 업로드하기</a>
         </Link>
