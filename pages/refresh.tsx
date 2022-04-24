@@ -55,7 +55,7 @@ const Home: NextPage = () => {
             value={uma_id.join("\n")}
             onChange={handleUmaIdChange}
             className={["textarea textarea-bordered w-full max-w-md", umaError ? "textarea-error" : ""].join(" ")}
-            placeholder="이곳에 말딸 아이디 입력"
+            placeholder={"이곳에 말딸 아이디를 입력하세요.\n한줄에 하나의 말딸 아이디를 입력할 수 있습니다."}
           />
           <div className="label">
             <span className="label-text-alt text-error">{umaError}</span>
