@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
 import { ValidationError } from "utils/error";
 import { useAlertContext } from "hooks/useAlertContext";
+import { chain } from "utils/chain";
 
 const Home: NextPage = () => {
   const { alert } = useAlertContext();
@@ -31,19 +32,19 @@ const Home: NextPage = () => {
       });
     } catch (e) {
       console.log(e);
-      if (e instanceof Error) {
+      if (e instanceof Error)
         alert({
           type: "error",
           title: `${uma_id}의 정보를 업데이트 하는중 오류가 발생했습니다!`,
           message: e.message,
         });
-      }
+      throw e;
     }
   }
 
-  const updateUma = () => Promise.all(uma_id.map((uma) => updateData(uma, "uma")));
+  const updateUma = () => chain(uma_id, updateData, "uma");
 
-  const updateCard = () => Promise.all(uma_id.map((uma) => updateData(uma, "card")));
+  const updateCard = () => chain(uma_id, updateData, "card");
 
   async function updateAll() {
     await updateUma();
