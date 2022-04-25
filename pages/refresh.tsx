@@ -17,6 +17,13 @@ const Home: NextPage = () => {
   async function updateData(uma_id: string, endpoint: "uma" | "card") {
     try {
       if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        setUmaError(e.message);
+      }
+    }
+
+    try {
       await instance.post(`/refresh/${uma_id}/${endpoint}`);
       alert({
         type: "success",
@@ -24,9 +31,7 @@ const Home: NextPage = () => {
       });
     } catch (e) {
       console.log(e);
-      if (e instanceof ValidationError) {
-        setUmaError(e.message);
-      } else if (e instanceof Error) {
+      if (e instanceof Error) {
         alert({
           type: "error",
           title: `${endpoint}의 정보를 수정할 수 없었습니다.`,
