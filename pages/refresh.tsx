@@ -34,7 +34,7 @@ const Home: NextPage = () => {
       if (e instanceof Error) {
         alert({
           type: "error",
-          title: `${endpoint}의 정보를 수정할 수 없었습니다.`,
+          title: `${uma_id}의 정보를 업데이트 하는중 오류가 발생했습니다!`,
           message: e.message,
         });
       }
