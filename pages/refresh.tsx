@@ -3,6 +3,7 @@ import type { NextPage } from "next";
 import { ChangeEvent, useState } from "react";
 import { ValidationError } from "utils/error";
 import { useAlertContext } from "hooks/useAlertContext";
+import { chain } from "utils/chain";
 
 const Home: NextPage = () => {
   const { alert } = useAlertContext();
@@ -17,6 +18,13 @@ const Home: NextPage = () => {
   async function updateData(uma_id: string, endpoint: "uma" | "card") {
     try {
       if (!uma_id) throw new ValidationError("우마 아이디를 입력해주세요.");
+    } catch (e) {
+      if (e instanceof ValidationError) {
+        setUmaError(e.message);
+      }
+    }
+
+    try {
       await instance.post(`/refresh/${uma_id}/${endpoint}`);
       alert({
         type: "success",
@@ -24,21 +32,19 @@ const Home: NextPage = () => {
       });
     } catch (e) {
       console.log(e);
-      if (e instanceof ValidationError) {
-        setUmaError(e.message);
-      } else if (e instanceof Error) {
+      if (e instanceof Error)
         alert({
           type: "error",
-          title: `${endpoint}의 정보를 수정할 수 없었습니다.`,
+          title: `${uma_id}의 정보를 업데이트 하는중 오류가 발생했습니다!`,
           message: e.message,
         });
-      }
+      throw e;
     }
   }
 
-  const updateUma = () => Promise.all(uma_id.map((uma) => updateData(uma, "uma")));
+  const updateUma = () => chain(uma_id, updateData, "uma");
 
-  const updateCard = () => Promise.all(uma_id.map((uma) => updateData(uma, "card")));
+  const updateCard = () => chain(uma_id, updateData, "card");
 
   async function updateAll() {
     await updateUma();
